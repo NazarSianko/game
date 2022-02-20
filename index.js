@@ -103,7 +103,8 @@ function showResult(winner) {
 }
 function showDraw() {
     content.textContent = `Draw!`;
-    wrapper.style.display = '```block';
+    wrapper.style.display = 'block';
+    record.unshift('Draw');
 }
 function newGame () {
     wrapper.style.display = 'none';
