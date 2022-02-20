@@ -83,7 +83,7 @@ function check() {
             
             
         }
-        localStorage.setItem('arr', JSON.stringify(arr1));
+        localStorage.setItem('arr', JSON.stringify(record));
         for (let j = 0; j < record.length; j++) {
             //let arr2 = JSON.parse(localStorage.getItem("arr"));
             scoreItem[j].textContent = JSON.parse(localStorage.getItem("arr"))[j]; 
@@ -103,7 +103,7 @@ function showResult(winner) {
 }
 function showDraw() {
     content.textContent = `Draw!`;
-    wrapper.style.display = 'block';
+    wrapper.style.display = '```block';
 }
 function newGame () {
     wrapper.style.display = 'none';
