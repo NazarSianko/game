@@ -11,7 +11,28 @@ const scoreTable = document.querySelector('.score-table');
 const scoreItem = document.querySelectorAll('.score-item');
 let crossWin = 0;
 let zeroWin = 0;
-let record = [];
+const record = JSON.parse(localStorage.getItem("arr")) || [];
+addEventListener('click', e => {
+    if (e.target.className == 'clear-btn') {
+        localStorage.removeItem('arr');
+        location.reload()
+    }
+})
+for (let j = 0; j < 10 ; j++) {
+    if (JSON.parse(localStorage.getItem("arr")) == null) {
+        scoreItem[j].textContent = '';
+    }
+    else {
+        scoreItem[j].textContent = JSON.parse(localStorage.getItem("arr"))[j]; 
+    }
+    //scoreItem[j].textContent = JSON.parse(localStorage.getItem("arr"))[j]; 
+    if (record.length > 10) {
+        record.splice(10,1);
+        scoreItem[0].textContent = JSON.parse(localStorage.getItem("arr"))[0];
+    }
+  
+}
+
 const sound = document.querySelector('.sound');
 addEventListener('click', e => {
     if (e.target.className == 'box' && e.target.innerHTML == '') {
@@ -28,14 +49,26 @@ addEventListener('click', e => {
         sound.play();
        } 
         move ++;
-        check();
-        
-        
         if (move == 9) {
             showDraw();
         }
+        check();
+        localStorage.setItem('arr', JSON.stringify(record));
+        for (let j = 0; j < record.length; j++) {
+            //let arr2 = JSON.parse(localStorage.getItem("arr"));
+            scoreItem[j].textContent = JSON.parse(localStorage.getItem("arr"))[j]; 
+            if (record.length > 10) {
+                record.splice(10,1);
+                scoreItem[0].textContent = JSON.parse(localStorage.getItem("arr"))[0];
+                
+            }
+        }
+        
+    
     }
+
 })
+
 function check() {
     const box = document.querySelectorAll('.box');
     const arr = [
@@ -81,14 +114,10 @@ function check() {
             
             
             
-            
         }
-        localStorage.setItem('arr', JSON.stringify(record));
-        for (let j = 0; j < record.length; j++) {
-            //let arr2 = JSON.parse(localStorage.getItem("arr"));
-            scoreItem[j].textContent = JSON.parse(localStorage.getItem("arr"))[j]; 
-            console.log(JSON.parse(localStorage.getItem("arr"))[j])
-        }
+        
+       
+        
     }
    
 }
@@ -99,12 +128,14 @@ function check() {
 function showResult(winner) {
     content.textContent = `${winner} win by ${move} steps!`;
     wrapper.style.display = 'block';
+ 
    
 }
 function showDraw() {
     content.textContent = `Draw!`;
     wrapper.style.display = 'block';
     record.unshift('Draw');
+   
 }
 function newGame () {
     wrapper.style.display = 'none';
@@ -133,5 +164,6 @@ document.getElementById("myrange").addEventListener("change", function() {
       play.classList.toggle('stop')
   }
  
-  play.addEventListener('click',playMusic)
+  play.addEventListener('click',playMusic);
+  
 
