@@ -87,7 +87,9 @@ function check() {
         if ( box[arr[i][0]].innerHTML == 'X' && box[arr[i][1]].innerHTML == 'X' && box[arr[i][2]].innerHTML == 'X' ) {
             result = 'Cross';
             showResult(result);
-            record.unshift('cross win')
+            record.unshift('Cross win');
+            crossWin++;
+            cross.textContent = crossWin;
            // localStorage.setItem('arr', JSON.stringify(record));
             
            
@@ -102,7 +104,9 @@ function check() {
             
             result = 'Zero';
             showResult(result);
-            record.unshift('zero win');
+            record.unshift('Zero win');
+            zeroWin++;
+            zero.textContent = zeroWin;
             //localStorage.setItem('arr', JSON.stringify(record));
            
            
